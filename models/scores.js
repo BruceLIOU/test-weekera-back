@@ -14,6 +14,7 @@ const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
   const countPatX = paramsX / 1;
   const countPatY = paramsY / 1;
 
+  // Gestion du cas de la virgule
   let touchdownX = "Touchdown";
   let fieldGoalX = "Field goal";
   let touchdownY = touchdownX;
@@ -34,6 +35,8 @@ const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
   if (countFieldGoalY >= 2) {
     fieldGoalY += comma;
   }
+
+  // Insertion des résultats dans le tableau
   result.push({ teamX: touchdownX.repeat(countTouchdownX) });
   result.push({ teamX: fieldGoalX.repeat(countFieldGoalX) });
 
