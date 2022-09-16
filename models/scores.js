@@ -1,5 +1,18 @@
 const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
-  const typePoints = ["Touchdown", "FieldGoal", "PointAfterTouchdown"];
+  const rules = [
+    {
+      point: 6,
+      name: "Touchdown",
+    },
+    {
+      point: 3,
+      name: "Field Goal",
+    },
+    {
+      point: 1,
+      name: "Point After Touchdown",
+    },
+  ];
   // Convertion en nombre des valeurs reçues
   const paramsX = parseInt(scoreMaxX, 10);
   const paramsY = parseInt(scoreMaxY, 10);
@@ -7,42 +20,30 @@ const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
   let result = [];
 
   // Compteur par type de points
-  const countTouchdownX = paramsX / 6;
-  const countTouchdownY = paramsY / 6;
-  const countFieldGoalX = paramsX / 3;
-  const countFieldGoalY = paramsY / 3;
-  const countPatX = paramsX / 1;
-  const countPatY = paramsY / 1;
+  rules.forEach((item) => {
+    const countX = paramsX / item.point;
+    const countY = paramsY / item.point;
+    const comma = ", ";
+    let name = "";
+    if (paramsX > item.point) {
+      name = item.name + comma;
+    } else if (paramsX <= item.point) {
+      name = item.name;
+    }
+    if (paramsX >= item.point) {
+      result.push({ teamX: name.repeat(countX) });
+    }
 
-  // Gestion du cas de la virgule
-  let touchdownX = "Touchdown";
-  let fieldGoalX = "Field goal";
-  let touchdownY = touchdownX;
-  let fieldGoalY = fieldGoalX;
-
-  const comma = ", ";
-
-  if (countTouchdownX >= 2) {
-    touchdownX += comma;
-  }
-  if (countTouchdownY >= 2) {
-    touchdownY += comma;
-  }
-
-  if (countFieldGoalX >= 2) {
-    fieldGoalX += comma;
-  }
-  if (countFieldGoalY >= 2) {
-    fieldGoalY += comma;
-  }
-
-  // Insertion des résultats dans le tableau
-  result.push({ teamX: touchdownX.repeat(countTouchdownX) });
-  result.push({ teamX: fieldGoalX.repeat(countFieldGoalX) });
-
-  result.push({ teamY: touchdownY.repeat(countTouchdownY) });
-  result.push({ teamY: fieldGoalY.repeat(countFieldGoalY) });
-
+    if (paramsY > item.point) {
+      name = item.name + comma;
+    } else if (paramsY <= item.point) {
+      name = item.name;
+    }
+    if (paramsY >= item.point) {
+      result.push({ teamY: name.repeat(countY) });
+    }
+  });
+  console.log(result.length);
   return result;
 };
 
