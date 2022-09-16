@@ -31,7 +31,9 @@ const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
       name = item.name;
     }
     if (paramsX >= item.point) {
-      result.push({ teamX: name.repeat(countX) });
+      if (paramsX > 6 || item.point > 1) {
+        result.push({ teamX: name.repeat(countX) });
+      }
     }
 
     if (paramsY > item.point) {
@@ -40,10 +42,12 @@ const findPossibilityFromScores = (scoreMaxX, scoreMaxY) => {
       name = item.name;
     }
     if (paramsY >= item.point) {
-      result.push({ teamY: name.repeat(countY) });
+      if (paramsY > 6 || item.point > 1) {
+        result.push({ teamY: name.repeat(countY) });
+      }
     }
   });
-  console.log(result.length);
+  console.log(result);
   return result;
 };
 
